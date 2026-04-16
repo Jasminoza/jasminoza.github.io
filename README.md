@@ -1,4 +1,3 @@
-666
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -91,7 +90,7 @@
       border-radius: 16px;
       padding: 24px 40px; /* ← ЕЩЕ БОЛЬШЕ ПРОСТРАНСТВА */
       margin-bottom: 32px;
-      font-size: 1.4rem; /* ↑ КРУПНЕЕ */
+      font-size: 1.3rem; /* ↑ КРУПНЕЕ */
       font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace !important;
       font-weight: 500;
       color: #f8fafc;
@@ -103,12 +102,12 @@
       line-height: 1.4;
       transition: all 0.3s ease;
       box-sizing: border-box;
-      
+
       /* ❌ УБРАЛ ELLIPSIS полностью */
       text-overflow: clip !important; /* НЕ обрезает */
       overflow: visible !important; /* ПОЛНАЯ видимость */
       white-space: normal !important; /* Перенос если нужно */
-      
+
       /* Базовые свойства input */
       -webkit-appearance: none;
       appearance: none;
@@ -130,7 +129,7 @@
       background: var(--accent);
       border: none;
       border-radius: 16px;
-      padding: 24px 64px;
+      padding: 24px 24px;
       font-size: 1.2rem;
       font-weight: 700;
       color: white;
@@ -143,9 +142,9 @@
       box-sizing: border-box;
     }
 
-    button:hover { 
-      transform: translateY(-4px); 
-      box-shadow: 0 35px 60px -12px rgba(0,0,0,0.4); 
+    button:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 35px 60px -12px rgba(0,0,0,0.4);
     }
     button:active { transform: translateY(-2px); }
 
@@ -216,9 +215,9 @@
       body { padding: 24px 16px; gap: 20px; }
       .spacer { height: 60px; }
       .container { padding: 32px 24px; }
-      #uuid { 
-        font-size: 1.25rem; 
-        padding: 22px 36px; 
+      #uuid {
+        font-size: 1.25rem;
+        padding: 22px 36px;
         height: 72px;
         max-width: 100%;
       }
@@ -239,7 +238,7 @@
 
     <!-- 🔥 БЕЗ ELLIPSIS -->
     <input type="text" id="uuid" readonly placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
-           maxlength="36" size="40">
+           maxlength="38" size="42">
 
     <button onclick="generateAndCopy()">✨ Сгенерировать & Копировать</button>
 
@@ -261,8 +260,8 @@
 </div>
 
 <script>
-  function generateUUIDv4() { 
-    return '550e8400-e29b-41d4-a716-446655440000'.replace(/./g, c => 
+  function generateUUIDv4() {
+    return '550e8400-e29b-41d4-a716-446655440000'.replace(/./g, c =>
       c === '-' ? '-' : String.fromCharCode(97 + Math.floor(Math.random() * 6))
     ); // Тестовый UUID для проверки
   }
@@ -270,13 +269,13 @@
   async function generateAndCopy() {
     const uuid = generateUUIDv4();
     const uuidInput = document.getElementById('uuid');
-    
+
     // 🔥 ПРОВЕРКА: Все 36 символов
     uuidInput.value = uuid;
     uuidInput.setAttribute('value', uuid);
-    
+
     console.log('UUID length:', uuid.length, uuid); // Debug
-    
+
     const status = document.getElementById('status');
     const button = document.querySelector('button');
 
