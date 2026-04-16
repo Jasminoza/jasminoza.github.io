@@ -1,4 +1,4 @@
-333
+444
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -7,12 +7,7 @@
   <script src="https://an.yandex.ru/system/context.js"></script>
   <style>
     /* ФИКС ЯНДЕКС БРАУЗЕРА */
-    html {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
+    html { width: 100%; height: 100%; margin: 0; padding: 0; }
 
     body {
       min-height: 100vh;
@@ -26,7 +21,7 @@
       justify-content: flex-start;
       color: #f8fafc;
       padding: 24px 20px;
-      gap: 20px; /* ← Базовый малый gap */
+      gap: 20px;
       box-sizing: border-box;
       overflow-x: hidden;
     }
@@ -36,7 +31,7 @@
       --glass-border: rgba(255, 255, 255, 0.1);
       --accent: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
       --shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.25);
-      --app-to-ads-gap: 60px; /* ← ОТОСТУП МЕЖДУ ПРИЛОЖЕНИЕМ И РЕКЛАМОЙ */
+      --app-to-ads-gap: 60px;
     }
 
     .main-app {
@@ -87,28 +82,42 @@
       line-height: 1.4;
     }
 
+    /* ✅ ФИКС ОБРЕЗАНИЯ ПОСЛЕДНЕГО СИМВОЛА */
     #uuid {
       background: var(--glass-bg);
       backdrop-filter: blur(10px);
       border: 2px solid var(--glass-border);
       border-radius: 12px;
-      padding: 18px;
+      padding: 18px 20px; /* ← +2px справа для Яндекса */
       margin-bottom: 24px;
       font-size: 1.15rem;
       font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
       font-weight: 500;
       color: #f8fafc;
       width: 100%;
+      min-width: 0; /* ← Flex-фикс */
       text-align: center;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.025em; /* ← Немного больше для моноширинного */
+      line-height: 1.4; /* ← Вертикальный запас */
       transition: all 0.3s ease;
       box-sizing: border-box;
+      
+      /* 🔧 АНТИ-ОБРЕЗАНИЕ ДЛЯ ВСЕХ БРАУЗЕРОВ */
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      
+      /* Фикс Яндекс/Chrome */
+      -webkit-appearance: textfield;
+      appearance: textfield;
+      padding-right: 8px; /* ← Дополнительный отступ справа */
     }
 
     #uuid:focus {
       outline: none;
       border-color: #3b82f6;
       box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      padding-right: 10px; /* ← Еще больше при фокусе */
     }
 
     button {
@@ -125,6 +134,7 @@
       min-height: 56px;
       width: 100%;
       max-width: 320px;
+      box-sizing: border-box;
     }
 
     button:hover { transform: translateY(-2px); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35); }
@@ -141,9 +151,8 @@
 
     #status.show { opacity: 1; transform: translateY(0); }
 
-    /* ===== ОТОСТУПНЫЙ БЛОК ===== */
     .spacer {
-      height: var(--app-to-ads-gap); /* ← 60px чистого пространства */
+      height: var(--app-to-ads-gap);
       width: 100%;
       max-width: 480px;
       flex-shrink: 0;
@@ -195,7 +204,8 @@
 
     @media (max-width: 768px) {
       body { padding: 16px 12px; gap: 16px; }
-      .spacer { height: 48px; } /* ← 48px на мобиле */
+      .spacer { height: 48px; }
+      #uuid { font-size: 1.1rem; padding: 16px 18px 16px 18px; }
       .container { padding: 24px 20px; }
       .ads-section, .ads-container { gap: 12px; flex-direction: column; align-items: center; }
       .ad-slot.wide { max-width: 100%; height: 60px; }
@@ -206,13 +216,13 @@
 <body>
 <div class="particles" id="particles"></div>
 
-<!-- ПРИЛОЖЕНИЕ -->
 <div class="main-app">
   <div class="container">
     <h1>UUID v4 Generator</h1>
     <p class="subtitle">Генерируйте и копируйте уникальные идентификаторы одним кликом</p>
 
-    <input type="text" id="uuid" readonly placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx">
+    <input type="text" id="uuid" readonly placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+           maxlength="36" size="36">
 
     <button onclick="generateAndCopy()">✨ Сгенерировать & Копировать</button>
 
@@ -220,10 +230,8 @@
   </div>
 </div>
 
-<!-- ✅ ОТОСТУП 60px -->
 <div class="spacer"></div>
 
-<!-- РЕКЛАМА -->
 <div class="ads-section">
   <div class="ads-container">
     <div id="yandex_rtb_widget_1" class="ad-slot medium">
@@ -236,7 +244,9 @@
 </div>
 
 <script>
-  function generateUUIDv4() { return crypto.randomUUID(); }
+  function generateUUIDv4() { 
+    return crypto.randomUUID(); 
+  }
 
   async function generateAndCopy() {
     const uuid = generateUUIDv4();
@@ -244,12 +254,18 @@
     const status = document.getElementById('status');
     const button = document.querySelector('button');
 
+    // ✅ ФИКС: Принудительно устанавливаем полную длину
     uuidInput.value = uuid;
+    uuidInput.setAttribute('value', uuid); // ← Двойная установка
+    
+    // Прокручиваем до конца для проверки
+    uuidInput.scrollLeft = uuidInput.scrollWidth;
+
     button.textContent = '✅ Скопировано!';
 
     try {
       await navigator.clipboard.writeText(uuid);
-      status.textContent = '✅ UUID скопирован!';
+      status.textContent = '✅ UUID скопирован! (36 символов)';
       status.className = 'success show';
     } catch {
       status.textContent = '❌ Ctrl+C вручную';
@@ -259,9 +275,10 @@
     setTimeout(() => {
       button.textContent = '✨ Сгенерировать & Копировать';
       status.classList.remove('show');
-    }, 1800);
+    }, 2000);
   }
 
+  // Инициализация
   function createParticles() {
     const particles = document.getElementById('particles');
     for (let i = 0; i < 15; i++) {
