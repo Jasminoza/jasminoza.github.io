@@ -1,4 +1,4 @@
-222
+333
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -6,7 +6,7 @@
   <title>UUID v4 Generator</title>
   <script src="https://an.yandex.ru/system/context.js"></script>
   <style>
-    /* ===== ФИКС ДЛЯ ЯНДЕКС БРАУЗЕРА ===== */
+    /* ФИКС ЯНДЕКС БРАУЗЕРА */
     html {
       width: 100%;
       height: 100%;
@@ -16,8 +16,8 @@
 
     body {
       min-height: 100vh;
-      max-width: 100%; /* ← КРИТИЧНО для Яндекса */
-      margin: 0 auto; /* ← Центрирование через margin */
+      max-width: 100%;
+      margin: 0 auto;
       background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       display: flex;
@@ -26,8 +26,8 @@
       justify-content: flex-start;
       color: #f8fafc;
       padding: 24px 20px;
-      gap: 40px;
-      box-sizing: border-box; /* ← Включаем padding в ширину */
+      gap: 20px; /* ← Базовый малый gap */
+      box-sizing: border-box;
       overflow-x: hidden;
     }
 
@@ -36,16 +36,17 @@
       --glass-border: rgba(255, 255, 255, 0.1);
       --accent: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
       --shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.25);
+      --app-to-ads-gap: 60px; /* ← ОТОСТУП МЕЖДУ ПРИЛОЖЕНИЕМ И РЕКЛАМОЙ */
     }
 
     .main-app {
       flex-shrink: 0;
       width: 100%;
-      max-width: 480px; /* ← Явная max-width */
+      max-width: 480px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin: 0 auto; /* ← Двойное центрирование */
+      margin: 0 auto;
     }
 
     .container {
@@ -55,7 +56,7 @@
       border-radius: 20px;
       padding: 32px 28px;
       width: 100%;
-      max-width: 480px; /* ← Дублируем для надежности */
+      max-width: 480px;
       box-shadow: var(--shadow);
       text-align: center;
       animation: slideIn 0.6s ease-out;
@@ -123,7 +124,7 @@
       box-shadow: var(--shadow);
       min-height: 56px;
       width: 100%;
-      max-width: 320px; /* ← Ограничение ширины кнопки */
+      max-width: 320px;
     }
 
     button:hover { transform: translateY(-2px); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35); }
@@ -140,6 +141,14 @@
 
     #status.show { opacity: 1; transform: translateY(0); }
 
+    /* ===== ОТОСТУПНЫЙ БЛОК ===== */
+    .spacer {
+      height: var(--app-to-ads-gap); /* ← 60px чистого пространства */
+      width: 100%;
+      max-width: 480px;
+      flex-shrink: 0;
+    }
+
     .ads-section {
       width: 100%;
       max-width: 1000px;
@@ -147,7 +156,7 @@
       flex-direction: column;
       align-items: center;
       gap: 16px;
-      margin: 0 auto; /* ← Центрирование ads */
+      margin: 0 auto;
     }
 
     .ads-container {
@@ -185,7 +194,8 @@
     }
 
     @media (max-width: 768px) {
-      body { padding: 16px 12px; gap: 32px; }
+      body { padding: 16px 12px; gap: 16px; }
+      .spacer { height: 48px; } /* ← 48px на мобиле */
       .container { padding: 24px 20px; }
       .ads-section, .ads-container { gap: 12px; flex-direction: column; align-items: center; }
       .ad-slot.wide { max-width: 100%; height: 60px; }
@@ -196,6 +206,7 @@
 <body>
 <div class="particles" id="particles"></div>
 
+<!-- ПРИЛОЖЕНИЕ -->
 <div class="main-app">
   <div class="container">
     <h1>UUID v4 Generator</h1>
@@ -209,6 +220,10 @@
   </div>
 </div>
 
+<!-- ✅ ОТОСТУП 60px -->
+<div class="spacer"></div>
+
+<!-- РЕКЛАМА -->
 <div class="ads-section">
   <div class="ads-container">
     <div id="yandex_rtb_widget_1" class="ad-slot medium">
@@ -247,7 +262,6 @@
     }, 1800);
   }
 
-  // Частицы
   function createParticles() {
     const particles = document.getElementById('particles');
     for (let i = 0; i < 15; i++) {
@@ -268,7 +282,6 @@
   document.head.appendChild(style);
 
   createParticles();
-  document.querySelector('#status').className = 'success show'; // Тест
 </script>
 </body>
 </html>
