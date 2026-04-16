@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+Абоба лоло
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
