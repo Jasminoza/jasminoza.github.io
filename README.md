@@ -15,6 +15,7 @@
       --success: #10b981;
       --error: #ef4444;
       --shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.25);
+      --gap-large: 40px; /* ← Фиксированный большой отступ */
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -28,13 +29,13 @@
       align-items: center;
       justify-content: flex-start;
       color: var(--text-primary);
-      padding: 20px;
-      gap: 24px; /* ← Вернул gap=24px для отступа между app и ads */
+      padding: 24px 20px; /* ← Увеличил padding */
+      gap: var(--gap-large); /* ← 40px отступ между app и ads */
       overflow-x: hidden;
     }
 
     .main-app {
-      flex-shrink: 0; /* ← НЕ сжимается */
+      flex-shrink: 0;
       width: 100%;
       max-width: 480px;
       display: flex;
@@ -129,15 +130,15 @@
 
     #status.show { opacity: 1; transform: translateY(0); }
 
-    /* ===== РЕКЛАМА: ПОД ПРИЛОЖЕНИЕМ ===== */
+    /* ===== РЕКЛАМА: СТРОГО ПОД GAP ===== */
     .ads-section {
-      margin-top: auto; /* ← Толкает вниз */
       width: 100%;
       max-width: 1000px;
       display: flex;
-      flex-direction: column; /* ← ВСЕГДА В СТОЛБИК */
+      flex-direction: column;
       align-items: center;
       gap: 16px;
+      /* УБРАЛ margin-top: auto — теперь gap body управляет */
     }
 
     .ads-container {
@@ -189,9 +190,12 @@
     }
 
     @media (max-width: 768px) {
-      body { padding: 12px; gap: 20px; }
+      body { 
+        padding: 16px 12px; 
+        gap: 32px; /* ← 32px на мобиле */
+      }
       .container { padding: 24px 20px; }
-      .ads-section { margin-top: 20px; gap: 12px; }
+      .ads-section { gap: 12px; }
       .ads-container { 
         flex-direction: column; 
         align-items: center; 
@@ -205,7 +209,7 @@
 <body>
 <div class="particles" id="particles"></div>
 
-<!-- ОСНОВНОЕ ПРИЛОЖЕНИЕ -->
+<!-- ОСНОВНОЕ ПРИЛОЖЕНИЕ: ФИКСИРОВАННОЕ ПОЗИЦИОНИРОВАНИЕ -->
 <div class="main-app">
   <div class="container">
     <h1>UUID v4 Generator</h1>
@@ -221,7 +225,7 @@
   </div>
 </div>
 
-<!-- РЕКЛАМА ВНИЗУ -->
+<!-- РЕКЛАМА: ПОСЛЕ 40px ГAP -->
 <div class="ads-section">
   <div class="ads-container">
     <div id="yandex_rtb_widget_1" class="ad-slot medium">
