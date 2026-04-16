@@ -87,7 +87,7 @@
       backdrop-filter: blur(15px);
       border: 2px solid var(--glass-border);
       border-radius: 16px;
-      padding: 24px 40px;
+      padding: 20px 5px;
       margin-bottom: 32px;
       font-size: 1.3rem;
       font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace !important;
