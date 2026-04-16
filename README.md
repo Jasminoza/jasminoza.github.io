@@ -1,4 +1,4 @@
-444
+555
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -6,12 +6,11 @@
   <title>UUID v4 Generator</title>
   <script src="https://an.yandex.ru/system/context.js"></script>
   <style>
-    /* ФИКС ЯНДЕКС БРАУЗЕРА */
     html { width: 100%; height: 100%; margin: 0; padding: 0; }
 
     body {
       min-height: 100vh;
-      max-width: 100%;
+      max-width: 1400px; /* ← ШИРЕ для всех экранов */
       margin: 0 auto;
       background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -20,8 +19,8 @@
       align-items: center;
       justify-content: flex-start;
       color: #f8fafc;
-      padding: 24px 20px;
-      gap: 20px;
+      padding: 40px 24px; /* ← Больше padding */
+      gap: 24px;
       box-sizing: border-box;
       overflow-x: hidden;
     }
@@ -30,14 +29,14 @@
       --glass-bg: rgba(255, 255, 255, 0.05);
       --glass-border: rgba(255, 255, 255, 0.1);
       --accent: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
-      --shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.25);
-      --app-to-ads-gap: 60px;
+      --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      --app-to-ads-gap: 80px; /* ← Еще больше отступ */
     }
 
     .main-app {
       flex-shrink: 0;
       width: 100%;
-      max-width: 480px;
+      max-width: 600px; /* ← ШИРЕ приложение */
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -46,131 +45,133 @@
 
     .container {
       background: var(--glass-bg);
-      backdrop-filter: blur(20px);
+      backdrop-filter: blur(25px);
       border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 32px 28px;
+      border-radius: 24px;
+      padding: 48px 40px; /* ← ШИРЕ padding */
       width: 100%;
-      max-width: 480px;
       box-shadow: var(--shadow);
       text-align: center;
-      animation: slideIn 0.6s ease-out;
+      animation: slideIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       box-sizing: border-box;
     }
 
     @keyframes slideIn {
-      from { opacity: 0; transform: translateY(20px); }
+      from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     h1 {
-      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      font-size: clamp(2rem, 5vw, 3rem); /* ← КРУПНЕЕ */
       font-weight: 800;
       background: var(--accent);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin-bottom: 8px;
-      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      letter-spacing: -0.03em;
     }
 
     .subtitle {
       color: #cbd5e1;
-      font-size: 1rem;
-      margin-bottom: 28px;
+      font-size: 1.2rem; /* ← КРУПНЕЕ */
+      margin-bottom: 40px;
       font-weight: 400;
-      line-height: 1.4;
+      line-height: 1.5;
+      max-width: 500px; /* ← Не растягивается */
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    /* ✅ ФИКС ОБРЕЗАНИЯ ПОСЛЕДНЕГО СИМВОЛА */
+    /* ✅ UUID: ПОЛНОЕ ПРОСТРАНСТВО */
     #uuid {
       background: var(--glass-bg);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(15px);
       border: 2px solid var(--glass-border);
-      border-radius: 12px;
-      padding: 18px 20px; /* ← +2px справа для Яндекса */
-      margin-bottom: 24px;
-      font-size: 1.15rem;
+      border-radius: 16px;
+      padding: 24px 32px; /* ← ОЧЕНЬ много места */
+      margin-bottom: 32px;
+      font-size: 1.35rem; /* ← КРУПНЕЕ шрифт */
       font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
       font-weight: 500;
       color: #f8fafc;
       width: 100%;
-      min-width: 0; /* ← Flex-фикс */
+      max-width: 520px; /* ← Шире поле */
+      min-width: 360px;
+      height: 72px; /* ← Фиксированная высота */
       text-align: center;
-      letter-spacing: 0.025em; /* ← Немного больше для моноширинного */
-      line-height: 1.4; /* ← Вертикальный запас */
+      letter-spacing: 0.03em;
+      line-height: 1.3;
       transition: all 0.3s ease;
       box-sizing: border-box;
-      
-      /* 🔧 АНТИ-ОБРЕЗАНИЕ ДЛЯ ВСЕХ БРАУЗЕРОВ */
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
-      
-      /* Фикс Яндекс/Chrome */
       -webkit-appearance: textfield;
       appearance: textfield;
-      padding-right: 8px; /* ← Дополнительный отступ справа */
     }
 
     #uuid:focus {
       outline: none;
       border-color: #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-      padding-right: 10px; /* ← Еще больше при фокусе */
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
     }
 
     button {
       background: var(--accent);
       border: none;
-      border-radius: 14px;
-      padding: 16px 36px;
-      font-size: 1rem;
-      font-weight: 600;
+      border-radius: 16px;
+      padding: 24px 64px; /* ← КРУПНАЯ кнопка */
+      font-size: 1.2rem;
+      font-weight: 700;
       color: white;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       box-shadow: var(--shadow);
-      min-height: 56px;
+      min-height: 72px;
       width: 100%;
-      max-width: 320px;
+      max-width: 380px;
       box-sizing: border-box;
     }
 
-    button:hover { transform: translateY(-2px); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35); }
-    button:active { transform: translateY(0); }
+    button:hover { 
+      transform: translateY(-4px); 
+      box-shadow: 0 35px 60px -12px rgba(0,0,0,0.4); 
+    }
+    button:active { transform: translateY(-2px); }
 
     #status {
-      margin-top: 12px;
-      font-size: 0.95rem;
-      font-weight: 500;
+      margin-top: 16px;
+      font-size: 1.1rem;
+      font-weight: 600;
       opacity: 0;
-      transform: translateY(8px);
-      transition: all 0.3s ease;
+      transform: translateY(10px);
+      transition: all 0.4s ease;
+      min-height: 28px; /* ← Место для текста */
     }
 
     #status.show { opacity: 1; transform: translateY(0); }
 
     .spacer {
-      height: var(--app-to-ads-gap);
+      height: var(--app-to-ads-gap); /* ← 80px */
       width: 100%;
-      max-width: 480px;
+      max-width: 600px;
       flex-shrink: 0;
     }
 
     .ads-section {
       width: 100%;
-      max-width: 1000px;
+      max-width: 1200px; /* ← Шире ads */
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 16px;
+      gap: 24px;
       margin: 0 auto;
     }
 
     .ads-container {
       display: flex;
-      gap: 16px;
+      gap: 32px; /* ← Больше gap между баннерами */
       justify-content: center;
       flex-wrap: wrap;
       width: 100%;
@@ -178,38 +179,54 @@
 
     .ad-slot {
       background: var(--glass-bg) !important;
-      backdrop-filter: blur(10px) !important;
+      backdrop-filter: blur(15px) !important;
       border: 1px solid var(--glass-border) !important;
-      border-radius: 12px !important;
-      padding: 8px !important;
+      border-radius: 16px !important;
+      padding: 16px !important;
       box-shadow: var(--shadow) !important;
       overflow: hidden;
       box-sizing: border-box;
     }
 
-    .ad-slot.wide { min-width: 728px; max-width: 728px; height: 80px; }
-    .ad-slot.medium { min-width: 300px; max-width: 300px; height: 200px; }
+    .ad-slot.wide { 
+      min-width: 728px; 
+      max-width: 728px; 
+      height: 90px; 
+      flex: 0 0 auto;
+    }
+    .ad-slot.medium { 
+      min-width: 300px; 
+      max-width: 300px; 
+      height: 250px; 
+      flex: 0 0 auto;
+    }
 
     .ad-placeholder {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 4px;
+      gap: 8px;
       height: 100%;
       color: #cbd5e1;
-      font-weight: 500;
-      font-size: 0.85rem;
+      font-weight: 600;
+      font-size: 1rem;
     }
 
     @media (max-width: 768px) {
-      body { padding: 16px 12px; gap: 16px; }
-      .spacer { height: 48px; }
-      #uuid { font-size: 1.1rem; padding: 16px 18px 16px 18px; }
-      .container { padding: 24px 20px; }
-      .ads-section, .ads-container { gap: 12px; flex-direction: column; align-items: center; }
-      .ad-slot.wide { max-width: 100%; height: 60px; }
-      .ad-slot.medium { height: 160px; }
+      body { padding: 24px 16px; gap: 20px; }
+      .spacer { height: 60px; }
+      .container { padding: 32px 24px; }
+      #uuid { 
+        font-size: 1.2rem; 
+        padding: 20px 28px; 
+        height: 64px;
+        min-width: unset;
+      }
+      button { padding: 20px 48px; min-height: 64px; }
+      .ads-section, .ads-container { gap: 20px; flex-direction: column; align-items: center; }
+      .ad-slot.wide { max-width: 100%; height: 70px; }
+      .ad-slot.medium { height: 200px; }
     }
   </style>
 </head>
@@ -235,18 +252,20 @@
 <div class="ads-section">
   <div class="ads-container">
     <div id="yandex_rtb_widget_1" class="ad-slot medium">
-      <div class="ad-placeholder">📢 Место для рекламы 300×200</div>
+      <div class="ad-placeholder">
+        📢 300×250<br>Место для рекламы
+      </div>
     </div>
     <div id="yandex_rtb_widget_2" class="ad-slot wide">
-      <div class="ad-placeholder">📢 Место для рекламы 728×80</div>
+      <div class="ad-placeholder">
+        📢 728×90<br>Место для рекламы
+      </div>
     </div>
   </div>
 </div>
 
 <script>
-  function generateUUIDv4() { 
-    return crypto.randomUUID(); 
-  }
+  function generateUUIDv4() { return crypto.randomUUID(); }
 
   async function generateAndCopy() {
     const uuid = generateUUIDv4();
@@ -254,40 +273,36 @@
     const status = document.getElementById('status');
     const button = document.querySelector('button');
 
-    // ✅ ФИКС: Принудительно устанавливаем полную длину
     uuidInput.value = uuid;
-    uuidInput.setAttribute('value', uuid); // ← Двойная установка
-    
-    // Прокручиваем до конца для проверки
+    uuidInput.setAttribute('value', uuid);
     uuidInput.scrollLeft = uuidInput.scrollWidth;
 
-    button.textContent = '✅ Скопировано!';
+    button.textContent = '✅ Скопировано в буфер!';
 
     try {
       await navigator.clipboard.writeText(uuid);
-      status.textContent = '✅ UUID скопирован! (36 символов)';
+      status.innerHTML = '✅ <strong>UUID полностью скопирован!</strong> (36 символов)';
       status.className = 'success show';
     } catch {
-      status.textContent = '❌ Ctrl+C вручную';
+      status.innerHTML = '❌ Используйте Ctrl+C';
       status.className = 'error show';
     }
 
     setTimeout(() => {
       button.textContent = '✨ Сгенерировать & Копировать';
       status.classList.remove('show');
-    }, 2000);
+    }, 2500);
   }
 
-  // Инициализация
   function createParticles() {
     const particles = document.getElementById('particles');
-    for (let i = 0; i < 15; i++) {
+    for (let i = 0; i < 20; i++) {
       const particle = document.createElement('div');
       particle.style.cssText = `
         position: fixed; top: 0; left: ${Math.random() * 100}%;
-        width: ${Math.random() * 3 + 1}px; height: ${Math.random() * 3 + 1}px;
-        background: rgba(255,255,255,0.3); border-radius: 50%;
-        animation: float ${Math.random() * 10 + 15}s linear infinite;
+        width: ${Math.random() * 4 + 2}px; height: ${Math.random() * 4 + 2}px;
+        background: rgba(255,255,255,0.4); border-radius: 50%;
+        animation: float ${Math.random() * 12 + 18}s linear infinite;
         z-index: -1; pointer-events: none;
       `;
       particles.appendChild(particle);
@@ -295,7 +310,16 @@
   }
 
   const style = document.createElement('style');
-  style.textContent = '@keyframes float { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; } }';
+  style.textContent = `
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+    }
+    .success { color: #10b981; }
+    .error { color: #ef4444; }
+  `;
   document.head.appendChild(style);
 
   createParticles();
