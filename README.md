@@ -3,7 +3,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UUID v4 Generator</title>
-  <script src="https://an.yandex.ru/system/context.js"></script>
   <style>
     html { width: 100%; height: 100%; margin: 0; padding: 0; }
 
@@ -29,7 +28,6 @@
       --glass-border: rgba(255, 255, 255, 0.1);
       --accent: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
       --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-      --app-to-ads-gap: 80px;
     }
 
     .main-app {
@@ -155,57 +153,6 @@
 
     #status.show { opacity: 1; transform: translateY(0); }
 
-    .spacer {
-      height: var(--app-to-ads-gap);
-      width: 100%;
-      max-width: 600px;
-      flex-shrink: 0;
-    }
-
-    .ads-section {
-      width: 100%;
-      max-width: 1200px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 24px;
-      margin: 0 auto;
-    }
-
-    .ads-container {
-      display: flex;
-      gap: 32px;
-      justify-content: center;
-      flex-wrap: wrap;
-      width: 100%;
-    }
-
-    .ad-slot {
-      background: var(--glass-bg) !important;
-      backdrop-filter: blur(15px) !important;
-      border: 1px solid var(--glass-border) !important;
-      border-radius: 16px !important;
-      padding: 16px !important;
-      box-shadow: var(--shadow) !important;
-      overflow: hidden;
-      box-sizing: border-box;
-    }
-
-    .ad-slot.wide { min-width: 728px; max-width: 728px; height: 90px; flex: 0 0 auto; }
-    .ad-slot.medium { min-width: 300px; max-width: 300px; height: 250px; flex: 0 0 auto; }
-
-    .ad-placeholder {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      height: 100%;
-      color: #cbd5e1;
-      font-weight: 600;
-      font-size: 1rem;
-    }
-
     /* 🔥 ПОЛНАЯ МОБИЛЬНАЯ АДАПТИВНОСТЬ */
 
     /* Планшеты (768px - 1024px) */
@@ -255,33 +202,6 @@
         font-size: clamp(1.1rem, 4.5vw, 1.2rem);
         border-radius: 14px;
       }
-
-      .spacer { height: 40px; }
-
-      .ads-section { gap: 16px; }
-      .ads-container {
-        gap: 16px;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-      }
-
-      .ad-slot.wide {
-        max-width: 100%;
-        min-width: 320px;
-        height: clamp(60px, 20vw, 70px);
-      }
-
-      .ad-slot.medium {
-        max-width: 100%;
-        min-width: 320px;
-        height: clamp(200px, 60vw, 220px);
-      }
-
-      .ad-placeholder {
-        font-size: 0.95rem;
-        gap: 4px;
-      }
     }
 
     /* Маленькие мобильные (≤480px) */
@@ -297,12 +217,6 @@
 
       button { padding: 18px 28px; }
 
-      .spacer { height: 32px; }
-
-      .ad-slot.wide, .ad-slot.medium {
-        min-width: 100%;
-        padding: 12px !important;
-      }
     }
 
     /* Очень маленькие экраны (≤360px) */
@@ -316,7 +230,6 @@
     @media (max-height: 500px) and (orientation: landscape) {
       body { padding: 16px 12px; gap: 12px; }
       .container { padding: 24px 20px; }
-      .spacer { height: 20px; }
       #uuid { height: 60px; padding: 16px 24px; }
       button { min-height: 56px; padding: 16px 24px; }
     }
@@ -336,19 +249,6 @@
     <button onclick="generateAndCopy()">✨ Сгенерировать & Копировать</button>
 
     <div id="status"></div>
-  </div>
-</div>
-
-<div class="spacer"></div>
-
-<div class="ads-section">
-  <div class="ads-container">
-    <div id="yandex_rtb_widget_1" class="ad-slot medium">
-      <div class="ad-placeholder">📢 300×250<br>Место для рекламы</div>
-    </div>
-    <div id="yandex_rtb_widget_2" class="ad-slot wide">
-      <div class="ad-placeholder">📢 728×90<br>Место для рекламы</div>
-    </div>
   </div>
 </div>
 
