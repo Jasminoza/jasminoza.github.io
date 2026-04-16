@@ -82,33 +82,28 @@
       margin-right: auto;
     }
 
-    /* 🔥 ПОЛНЫЙ ФИКС ELLIPSIS */
     #uuid {
       background: var(--glass-bg);
       backdrop-filter: blur(15px);
       border: 2px solid var(--glass-border);
       border-radius: 16px;
-      padding: 24px 40px; /* ← ЕЩЕ БОЛЬШЕ ПРОСТРАНСТВА */
+      padding: 24px 40px;
       margin-bottom: 32px;
-      font-size: 1.3rem; /* ↑ КРУПНЕЕ */
+      font-size: 1.3rem;
       font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace !important;
       font-weight: 500;
       color: #f8fafc;
       width: 100%;
-      max-width: 580px; /* ↑ Шире */
-      height: 80px; /* ↑ Выше */
+      max-width: 580px;
+      height: 80px;
       text-align: center;
-      letter-spacing: 0.02em; /* ↓ Уменьшил */
+      letter-spacing: 0.02em;
       line-height: 1.4;
       transition: all 0.3s ease;
       box-sizing: border-box;
-
-      /* ❌ УБРАЛ ELLIPSIS полностью */
-      text-overflow: clip !important; /* НЕ обрезает */
-      overflow: visible !important; /* ПОЛНАЯ видимость */
-      white-space: normal !important; /* Перенос если нужно */
-
-      /* Базовые свойства input */
+      text-overflow: clip !important;
+      overflow: visible !important;
+      white-space: normal !important;
       -webkit-appearance: none;
       appearance: none;
       border: none;
@@ -138,7 +133,7 @@
       box-shadow: var(--shadow);
       min-height: 72px;
       width: 100%;
-      max-width: 420px; /* ↑ Шире */
+      max-width: 420px;
       box-sizing: border-box;
     }
 
@@ -211,20 +206,119 @@
       font-size: 1rem;
     }
 
+    /* 🔥 ПОЛНАЯ МОБИЛЬНАЯ АДАПТИВНОСТЬ */
+
+    /* Планшеты (768px - 1024px) */
+    @media (max-width: 1024px) and (min-width: 769px) {
+      .container { padding: 40px 32px; }
+      #uuid { max-width: 500px; }
+      button { max-width: 360px; }
+    }
+
+    /* Мобильные устройства (≤768px) */
     @media (max-width: 768px) {
-      body { padding: 24px 16px; gap: 20px; }
-      .spacer { height: 60px; }
-      .container { padding: 32px 24px; }
-      #uuid {
-        font-size: 1.25rem;
-        padding: 22px 36px;
-        height: 72px;
-        max-width: 100%;
+      body {
+        padding: 20px 16px;
+        gap: 20px;
       }
-      button { padding: 20px 52px; min-height: 68px; max-width: 100%; }
-      .ads-section, .ads-container { gap: 20px; flex-direction: column; align-items: center; }
-      .ad-slot.wide { max-width: 100%; height: 70px; }
-      .ad-slot.medium { height: 200px; }
+
+      .container {
+        padding: 32px 20px;
+        border-radius: 20px;
+        margin-bottom: 20px;
+      }
+
+      h1 {
+        font-size: clamp(1.75rem, 8vw, 2.25rem);
+        margin-bottom: 8px;
+      }
+
+      .subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 28px;
+        line-height: 1.4;
+      }
+
+      #uuid {
+        font-size: clamp(1.1rem, 5vw, 1.25rem);
+        padding: 20px 28px;
+        height: clamp(68px, 12vw, 72px);
+        margin-bottom: 24px;
+        letter-spacing: 0.01em;
+        border-radius: 14px;
+      }
+
+      button {
+        padding: 20px 32px;
+        min-height: clamp(64px, 12vw, 68px);
+        max-width: 100%;
+        font-size: clamp(1.1rem, 4.5vw, 1.2rem);
+        border-radius: 14px;
+      }
+
+      .spacer { height: 40px; }
+
+      .ads-section { gap: 16px; }
+      .ads-container {
+        gap: 16px;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+
+      .ad-slot.wide {
+        max-width: 100%;
+        min-width: 320px;
+        height: clamp(60px, 20vw, 70px);
+      }
+
+      .ad-slot.medium {
+        max-width: 100%;
+        min-width: 320px;
+        height: clamp(200px, 60vw, 220px);
+      }
+
+      .ad-placeholder {
+        font-size: 0.95rem;
+        gap: 4px;
+      }
+    }
+
+    /* Маленькие мобильные (≤480px) */
+    @media (max-width: 480px) {
+      body { padding: 16px 12px; gap: 16px; }
+
+      .container { padding: 28px 16px; }
+
+      #uuid {
+        padding: 18px 24px;
+        font-size: 1.1rem;
+      }
+
+      button { padding: 18px 28px; }
+
+      .spacer { height: 32px; }
+
+      .ad-slot.wide, .ad-slot.medium {
+        min-width: 100%;
+        padding: 12px !important;
+      }
+    }
+
+    /* Очень маленькие экраны (≤360px) */
+    @media (max-width: 360px) {
+      .container { padding: 24px 12px; }
+      #uuid { padding: 16px 20px; }
+      button { padding: 16px 24px; }
+    }
+
+    /* Ландшафтный режим мобильных */
+    @media (max-height: 500px) and (orientation: landscape) {
+      body { padding: 16px 12px; gap: 12px; }
+      .container { padding: 24px 20px; }
+      .spacer { height: 20px; }
+      #uuid { height: 60px; padding: 16px 24px; }
+      button { min-height: 56px; padding: 16px 24px; }
     }
   </style>
 </head>
@@ -236,7 +330,6 @@
     <h1>UUID v4 Generator</h1>
     <p class="subtitle">Генерируйте и копируйте уникальные идентификаторы одним кликом</p>
 
-    <!-- 🔥 БЕЗ ELLIPSIS -->
     <input type="text" id="uuid" readonly placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
            maxlength="38" size="42">
 
@@ -263,18 +356,17 @@
   function generateUUIDv4() {
     return '550e8400-e29b-41d4-a716-446655440000'.replace(/./g, c =>
       c === '-' ? '-' : String.fromCharCode(97 + Math.floor(Math.random() * 6))
-    ); // Тестовый UUID для проверки
+    );
   }
 
   async function generateAndCopy() {
     const uuid = generateUUIDv4();
     const uuidInput = document.getElementById('uuid');
 
-    // 🔥 ПРОВЕРКА: Все 36 символов
     uuidInput.value = uuid;
     uuidInput.setAttribute('value', uuid);
 
-    console.log('UUID length:', uuid.length, uuid); // Debug
+    console.log('UUID length:', uuid.length, uuid);
 
     const status = document.getElementById('status');
     const button = document.querySelector('button');
@@ -296,7 +388,6 @@
     }, 3000);
   }
 
-  // Частицы и стили
   function createParticles() {
     const particles = document.getElementById('particles');
     for (let i = 0; i < 20; i++) {
@@ -326,7 +417,7 @@
   document.head.appendChild(style);
 
   createParticles();
-  generateAndCopy(); // Автотест
+  generateAndCopy();
 </script>
 </body>
 </html>
