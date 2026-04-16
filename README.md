@@ -353,14 +353,8 @@
 </div>
 
 <script>
-  function generateUUIDv4() {
-    return '550e8400-e29b-41d4-a716-446655440000'.replace(/./g, c =>
-      c === '-' ? '-' : String.fromCharCode(97 + Math.floor(Math.random() * 6))
-    );
-  }
-
   async function generateAndCopy() {
-    const uuid = generateUUIDv4();
+    const uuid = crypto.randomUUID();
     const uuidInput = document.getElementById('uuid');
 
     uuidInput.value = uuid;
